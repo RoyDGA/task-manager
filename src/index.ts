@@ -1,14 +1,17 @@
 import express from "express";
 import healthRoutes from "./api/routes/health.routes.js";
+import authRoutes from "./api/routes/auth.routes.js";
 import pool from "./config/database.js";
 
 const app = express();
+app.use(express.json());
 const PORT = 3000;
 
 app.use(healthRoutes);
+app.use(authRoutes);
 
-app.listen(PORT, () => {
-    console.log('Servidor ejecutandose en el puerto: ', PORT);
+app.listen(PORT, async () => {
+    console.log(`Servidor ejecutandose en http://localhost:${PORT}`);
 });
 
 try {
