@@ -37,3 +37,22 @@ export async function getTaskById(taskId: number, userId: number){
 
     return result.rows[0];
 } 
+
+export async function updateTask(
+    taskId: number,
+    title: string,
+    description: string,
+    dueDate: string,
+    status: string,
+    userId: number
+){
+    const result = await pool.query(
+        `UPDATE tasks
+        SET title = $1, description = $2, due_date = $3, status = $4
+        WHERE id = $5 AND user_id = $6
+        RETURNING id, title, description, due_date, status, user_id, created_at`, 
+        [title, description, dueDate, status, taskId, userId]
+    );
+
+    return result.rows[0];
+}
