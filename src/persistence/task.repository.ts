@@ -56,3 +56,17 @@ export async function updateTask(
 
     return result.rows[0];
 }
+
+export async function deleteTask(
+    taskId: number,
+    userId: number
+){
+    const result = await pool.query(
+        `DELETE FROM tasks
+        WHERE id =$1 AND user_id = $2
+        RETURNING id`, 
+        [taskId, userId]
+    );
+
+    return result.rows[0];
+}
