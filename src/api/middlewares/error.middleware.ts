@@ -15,7 +15,17 @@ export const errorMiddleware: ErrorRequestHandler = (
         return;
     }
 
-    console.error("Internal server error", error);
+    if (
+        error instanceof SyntaxError &&
+        "status" in error &&
+        error.status === 400
+    ) {
+        res.status(400).json({
+            message: "El cuerpo de la petición contiene JSON inválido."
+        });
+        return;
+    }
+
 
     res.status(500).json({
         message: "Internal server error"

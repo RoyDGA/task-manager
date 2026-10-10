@@ -23,6 +23,9 @@ export function validateBody<T>(
             })
             .join("; ");
         
+            console.log("Errores de validación:", details);
+            console.log("Tipo de error:", new AppError("Prueba", 400) instanceof AppError);
+            
             return next(
                 new AppError(`Datos inválidos ${details}`, 400)
             );
