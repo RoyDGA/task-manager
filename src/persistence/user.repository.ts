@@ -2,7 +2,9 @@ import pool from "../config/database.js";
 
 export async function findUserByEmail(email: string){
     const result = await pool.query(
-        "SELECT id, name, email, password FROM users WHERE email = $1",
+        `SELECT id, name, email, password
+        FROM users
+        WHERE email = $1`,
         [email]
     );
     return result.rows[0];

@@ -1,6 +1,7 @@
 import { findUserByEmail, createUser } from "../persistence/user.repository.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { AppError } from "../utils/app-error.js";
 
 
 export async function register(
@@ -26,14 +27,19 @@ export async function login(
 ){
     const user = await findUserByEmail(email);
 
+    console.log("Usuario encontrado: ", Boolean(user));
+    console.log("La contraseña no coincide: ", 
+        user ? await bcrypt.compare(password, user.password):false
+    );
+
     if(!user){
-        throw new Error("Correo o contraseña incorrecta");
+        throw new AppError("Correo o contraseña incorrecta.", 401);
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if(!passwordMatch){
-        throw new Error("Correo o contraseña incorrecta");
+        throw new AppError("Correo o contraseña incorrecta.", 401);
     }
 
     const JWT_SECRET = process.env.JWT_SECRET;
