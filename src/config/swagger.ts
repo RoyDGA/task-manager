@@ -10,12 +10,12 @@ const swaggerOptions: swaggerJSDoc.Options = {
         },
         servers: [
             {
-                url: "http://localhost:3000",
-                description: "Servidor local de desarrollo",
-            },
-            {
                 url: "https://task-manager-api-s9pi.onrender.com",
                 description: "Servidor de producción en Render",
+            },
+            {
+                url: "http://localhost:3000",
+                description: "Servidor local de desarrollo",
             },
         ],
         components: {
