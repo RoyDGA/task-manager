@@ -8,7 +8,6 @@ import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger.js";
 
 const app = express();
-const PORT = 3000;
 
 app.use(express.json());
 
@@ -21,14 +20,21 @@ app.use(taskRoutes);
 app.use(errorMiddleware);
 
 
-app.listen(PORT, async () => {
-    console.log(`Servidor ejecutandose en http://localhost:${PORT}`);
-});
 
-try {
-    await pool.query("SELECT NOW()");
-    console.log('Conexión postgreSQL correcta');
-    
-} catch (error) {
-    console.log('Error al conectar: ', error);
+const PORT = Number(process.env.PORT) || 3000;
+
+async function startServer() {
+    try {
+        await pool.query("SELECT NOW()");
+        console.log("Conexión PostgreSQL correcta");
+
+        app.listen(PORT, "0.0.0.0", () => {
+            console.log(`Servidor ejecutándose en el puerto ${PORT}`);
+        });
+    } catch (error) {
+        console.error("Error al conectar con PostgreSQL:", error);
+        process.exit(1);
+    }
 }
+
+startServer();

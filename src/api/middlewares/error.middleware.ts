@@ -21,7 +21,7 @@ export const errorMiddleware: ErrorRequestHandler = (
         error.status === 400
     ) {
         res.status(400).json({
-            message: "El cuerpo de la petición contiene JSON inválido."
+            message: "Request body contains invalid JSON"
         });
         return;
     }
