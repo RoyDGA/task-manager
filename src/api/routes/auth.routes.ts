@@ -1,5 +1,7 @@
 import {Router} from "express";
 import {registerController, loginController} from "../../controllers/auth.controller.js";
+import { validateBody } from "../middlewares/validate.middleware.js";
+import { registerSchema } from "../../validators/auth.schema.js";
 
 const router = Router();
 
@@ -24,14 +26,18 @@ const router = Router();
  *             properties:
  *               name:
  *                 type: string
+ *                 minLength: 1
+ *                 maxLength: 100
  *                 example: User123
  *               email:
  *                 type: string
  *                 format: email
+ *                 maxLength: 255
  *                 example: user123@example.com
  *               password:
  *                 type: string
  *                 format: password
+ *                 minLength: 1
  *                 example: user123
  *     responses:
  *       "201":
@@ -43,7 +49,11 @@ const router = Router();
  *       "500":
  *         description: Error interno del servidor.
  */
-router.post("/auth/register", registerController);
+router.post(
+    "/auth/register",
+    validateBody(registerSchema),
+    registerController
+);
 
 /**
  * @openapi
