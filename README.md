@@ -250,7 +250,7 @@ Los estados permitidos son:
 
 ## Registro del desarrollo
 
-El archivo `DEVELOPMENT_LOG.md` documenta el uso de herramientas de inteligencia artificial durante el desarrollo, los prompts relevantes, las decisiones tomadas, los cambios aceptados o rechazados y las verificaciones realizadas.
+El archivo `DEVELOPMENT_LOG.md` documenta el uso de herramientas de inteligencia artificial durante el desarrollo, los prompts relevantes, las decisiones tomadas y las verificaciones realizadas.
 
 ## Licencia
 
